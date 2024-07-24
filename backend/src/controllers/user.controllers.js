@@ -21,10 +21,10 @@ const genrateAccessTokenAndRefreshToken = async (userId) => {
 
 const registerUser = asyncHandler(async(req,res)=>{
     try {
-        const { fullname, username , password , email } = req.body
+        const { fullname, username , password , email , bio } = req.body
         console.log("request",req.body)
         if (
-            [fullname , username , password , email].some((field) => field?.trim()=== "")
+            [fullname , username , password , email , bio].some((field) => field?.trim()=== "")
             ) {
                 throw new ApiError(400,"ALL feild are required")
             }
@@ -47,6 +47,7 @@ const registerUser = asyncHandler(async(req,res)=>{
             username,
             password,
             email,
+            bio,
             avtar:imageUrl?.url || "",
         })
 
@@ -129,7 +130,6 @@ const logOutUser = asyncHandler(async(req,res)=>{
    .clearCookie("refreshToken", options)
    .json(new ApiResponse(200, {}, "Admin logged Out"))
 })
-
 const getCurrentUser = asyncHandler(async(req,res)=>{
     return res.status(200)
     .json(new ApiResponse(
