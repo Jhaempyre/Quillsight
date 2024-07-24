@@ -3,7 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import {uploadOnCloudinary} from "../utils/cloudinary.js";
 import {User} from "../models/user.models.js";
-import jwt from "jsonwebtoken";
+
 
 
 const genrateAccessTokenAndRefreshToken = async (userId) => {
@@ -140,8 +140,31 @@ const getCurrentUser = asyncHandler(async(req,res)=>{
         "User Details Fetched Succesfully"
     ))
 })
+const changePassword = asyncHandler(async(req,res)=>{
+   try {
+     const {oldPassword, newPassword} = req.body
+     const user = await User.findById(req.theUser._id)
+     const isValid = user.isPasswordCorrect(oldPassword)
+     if(!isValid){
+        throw new ApiError(400, "Old Password is Incorrect")
+        }
+        User.password = newPassword
+        await User.save({validateBeforeSave: false})
+        return res.status(200)
+        .json( new ApiResponse(
+            200,
+            {},
+            "password changed succesfully"
+        ))
+    } 
+   catch (error) {
+    throw new ApiError(400,`${error.message}`)
+   }
+
+})
 export {registerUser,
         loginUser,
         logOutUser,
-        getCurrentUser
+        getCurrentUser,
+        changePassword
        }

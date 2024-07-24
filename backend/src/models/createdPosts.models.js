@@ -10,8 +10,8 @@ const createdPostSchema = new Schema(
             }
         ],   
         username:{
-                type:Schema.Types.ObjectId,
-                ref:'User',
+                type:String,
+                required:true
         },
 
 },{

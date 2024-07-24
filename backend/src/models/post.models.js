@@ -19,10 +19,9 @@ const postSchema = new Schema(
             required:true
         },    
         username:{
-                type:Schema.Types.ObjectId,
-                ref:'User',
-        },
-
+                type:String,
+                required:true
+        }
 },{
     timeseries:true,
     timestamps:true
