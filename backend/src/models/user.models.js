@@ -8,9 +8,7 @@ const userSchema = new Schema(
             type:String,
             required:true,
             unique:true,
-            lowercase :true,
-            trim:true,
-            index:true
+
         },
         email:{
             type:String,
@@ -29,7 +27,7 @@ const userSchema = new Schema(
         avtar:{
             type:String ,//cloudnary url
             //required is made false
-            required:true
+            required:false
         },
         password:{
             type: String ,

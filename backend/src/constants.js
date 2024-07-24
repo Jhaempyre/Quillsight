@@ -1,1 +1,1 @@
-export const DB_NAME = "QUILLSIGHT"
+export const DB_NAME = "quillsight"
