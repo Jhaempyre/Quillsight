@@ -81,6 +81,27 @@ const getCreatedPost = asyncHandler(async(req,res)=>{
     }
 })
 const getAllUpdate = asyncHandler(async(req,res)=>{ 
+    console.log("request to get the posts")
+    try {
+        const thePost = await CreatedPost.find({}).populate('allPosts');
+        console.log(thePost)
+        if(!thePost){
+            throw new ApiError(400,"No post founds")
+            }
+            const allPosts = thePost.reduce((acc, doc) => {
+                return acc.concat(doc.allPosts);
+              }, []);    
+              console.log(allPosts)
+              if (allPosts.length === 0) {
+                throw new ApiError(404, "No posts found");
+              }
+              return res.status(200).json(
+                new ApiResponse(200, allPosts, "All posts founds")
+                );
+    } catch (error) {
+        console.log(error)
+        throw new ApiError(400,`${error.message}`)
+    }
 })
 const getSavedUpdate = asyncHandler(async(req,res)=>{ 
 })
