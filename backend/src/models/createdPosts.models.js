@@ -19,4 +19,4 @@ const createdPostSchema = new Schema(
     timestamps:true
 })
 
-export const createdPost = mongoose.model("Allpost",createdPostSchema)
+export const CreatedPost = mongoose.model("allposts",createdPostSchema)

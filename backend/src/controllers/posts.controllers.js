@@ -4,7 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { User } from "../models/user.models.js";
 import { Post } from "../models/post.models.js";
-import { createdPost } from "../models/createdPosts.models.js";
+import { CreatedPost } from "../models/createdPosts.models.js";
 
 const addPost = asyncHandler(async (req, res) => {
     try {
@@ -39,13 +39,13 @@ const addPost = asyncHandler(async (req, res) => {
             throw new ApiError(400, "Something went wrong at server side, please try again later");
         }
         
-        let userPosts = await createdPost.findOne({ username: username });
+        let userPosts = await CreatedPost.findOne({ username: username });
         
         if (userPosts) {
             userPosts.allPosts.push(thePost._id);
             await userPosts.save();
         } else {
-            userPosts = await createdPost.create({
+            userPosts = await CreatedPost.create({
                 username,
                 allPosts: [thePost._id]
             });
@@ -58,7 +58,27 @@ const addPost = asyncHandler(async (req, res) => {
         throw new ApiError(400, `${error.message}`);
     }
 });
-const getCreatedPost = asyncHandler(async(req,res)=>{  
+const getCreatedPost = asyncHandler(async(req,res)=>{
+    console.log("request to get the posts")
+    try {
+        const username = req.theUser?.username
+        console.log(username)
+        const userPosts = await CreatedPost.findOne({username:username}).populate('allPosts');
+        console.log(userPosts)
+        if(!userPosts){
+            throw new ApiError(400,"No post founds")
+        }
+        return res.status(200).json(
+            new ApiResponse(
+                200,
+                userPosts.allPosts,
+                "All posts founds"
+            ))
+        
+    } catch (error) {
+        console.log(error)
+        throw new ApiError(400,`${error.message}`)
+    }
 })
 const getAllUpdate = asyncHandler(async(req,res)=>{ 
 })
