@@ -177,8 +177,59 @@ const getSavedUpdate = asyncHandler(async (req, res) => {
         console.error("Error retrieving saved items:", error);
         throw new ApiError(error.statusCode || 500, `Failed to retrieve saved items: ${error.message}`);
     }
-});
-const editPost = asyncHandler(async(req,res)=>{
+})
+
+const editPost = asyncHandler(async(req, res) => {
+    console.log("Request to edit a post");
+    try {
+        const { tittle, content, category, postId } = req.body;
+        const username = req.theUser.username;
+
+        if (!postId) {
+            throw new ApiError(400, "Post ID is required");
+        }
+
+        const post = await Post.findById(postId);
+
+        if (!post) {
+            throw new ApiError(404, "Post not found");
+        }
+
+        // Check if the user is the owner of the post
+        if (post.username !== username) {
+            throw new ApiError(403, "You don't have permission to edit this post");
+        }
+
+        let imageUrl;
+        if (req.file) {
+            const imageLocalPath = req.file.path;
+            imageUrl = await uploadOnCloudinary(imageLocalPath, "Post");
+            if (!imageUrl) {
+                throw new ApiError(500, "Error uploading image to Cloudinary");
+            }
+            post.image = imageUrl.url;
+            console.log("Photo updated");
+        }
+
+        // Update other fields if provided
+        if (tittle) post.tittle = tittle;
+        if (content) post.content = content;
+        if (category) post.category = category;
+
+        await post.save();
+
+        return res.status(200).json(
+            new ApiResponse(
+                200,
+                { post },
+                "Post updated successfully"
+            )
+        );
+
+    } catch (error) {
+        console.log(error)
+        throw new ApiError(error.statusCode || 500, `Failed to edit post: ${error.message}`);
+    }
 })
 const deletePost = asyncHandler(async(req,res)=>{
 })
