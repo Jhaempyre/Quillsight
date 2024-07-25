@@ -178,7 +178,6 @@ const getSavedUpdate = asyncHandler(async (req, res) => {
         throw new ApiError(error.statusCode || 500, `Failed to retrieve saved items: ${error.message}`);
     }
 })
-
 const editPost = asyncHandler(async(req, res) => {
     console.log("Request to edit a post");
     try {
@@ -231,8 +230,48 @@ const editPost = asyncHandler(async(req, res) => {
         throw new ApiError(error.statusCode || 500, `Failed to edit post: ${error.message}`);
     }
 })
-const deletePost = asyncHandler(async(req,res)=>{
-})
+const deletePost = asyncHandler(async (req, res) => {
+    console.log("Request to delete a post");
+    try {
+        const { postId } = req.body;
+        const username = req.theUser.username;
+
+        if (!postId) {
+            throw new ApiError(400, "Post ID is required");
+        }
+
+        const post = await Post.findById(postId);
+
+        if (!post) {
+            throw new ApiError(404, "Post not found");
+        }
+
+        // Check if the user is the owner of the post
+        if (post.username !== username) {
+            throw new ApiError(403, "You don't have permission to delete this post");
+        }
+
+        // Delete the post
+        await Post.findByIdAndDelete(postId);
+
+        // Remove the post from the user's CreatedPost document
+        await CreatedPost.findOneAndUpdate(
+            { username: username },
+            { $pull: { allPosts: postId } }
+        );
+
+        return res.status(200).json(
+            new ApiResponse(
+                200,
+                null,
+                "Post deleted successfully"
+            )
+        );
+    } catch (error) {
+        console.error("Error deleting post:", error);
+        throw new ApiError(error.statusCode || 500, `Failed to delete post: ${error.message}`);
+    }
+});
 
 export {addPost,
     getCreatedPost,

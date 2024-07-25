@@ -3,6 +3,7 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import {uploadOnCloudinary} from "../utils/cloudinary.js";
 import {User} from "../models/user.models.js";
+import { Follows } from "../models/follows.models.js";
 
 
 
@@ -162,9 +163,53 @@ const changePassword = asyncHandler(async(req,res)=>{
    }
 
 })
+const follow = asyncHandler(async (req, res) => {
+    console.log("Attempting to follow a user");
+    try {
+        const { userIdToFollow } = req.body;
+        const userId = req.theUser._id;
+        const username = req.theUser.username;
+
+        if (!userIdToFollow) {
+            throw new ApiError(400, "User to follow is required");
+        }
+
+        let followEntry = await Follows.findOne({ username });
+
+        if (!followEntry) {
+            followEntry = new Follows({ username, follower: [], following: [] });
+        }
+
+        if (followEntry.following.includes(userIdToFollow)) {
+            throw new ApiError(400, "You are already following this user");
+        }
+
+        followEntry.following.push(userIdToFollow);
+        followEntry.follower.push(userId);
+        await followEntry.save();
+
+        return res.status(200).json(new ApiResponse(200, followEntry, "Followed successfully"));
+    } catch (error) {
+        console.log(error);
+        throw new ApiError(400, `${error.message}`);
+    }
+});
+const unfollow = asyncHandler(async(req,res)=>{
+
+})
+const followerList = asyncHandler(async(req,res)=>{
+
+})
+const followingList = asyncHandler(async(req,res)=>{
+
+})
 export {registerUser,
         loginUser,
         logOutUser,
         getCurrentUser,
-        changePassword
+        changePassword,
+        follow,
+        unfollow,
+        followerList,
+        followingList
        }

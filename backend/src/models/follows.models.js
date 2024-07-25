@@ -12,7 +12,12 @@ const followsSchema = new Schema(
         following:{
                 type:Schema.Types.ObjectId,
                 ref:'User',
+                default :[]
         },
+        username:{
+            type:String,
+            required:true
+        }
 
 },{
     timeseries:true,
