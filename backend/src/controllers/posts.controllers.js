@@ -139,8 +139,45 @@ const savePost = asyncHandler(async(req,res)=>{
         throw new ApiError(400,`${error.message}`)
     }
 })
-const getSavedUpdate = asyncHandler(async(req,res)=>{ 
-})
+const getSavedUpdate = asyncHandler(async (req, res) => {
+    console.log("Request to get user's saved items");
+
+    try {
+        const username = req.theUser.username;
+        console.log(username)
+        if (!username) {
+            throw new ApiError(401, "User not authenticated");
+        }
+
+        // Find the SavedPost document for the user
+        const savedItems = await SavedPost.findOne({ username }).populate({
+                                              path: 'allPosts',
+                                              select: 'title image content category createdAt' // Select the fields you want to include
+                                          });
+
+        if (!savedItems) {
+            return res.status(200).json(
+                new ApiResponse(200, { savedItems: [] }, "No saved items found for the user")
+            );
+        }
+
+        // If savedItems exist, return them
+        return res.status(200).json(
+            new ApiResponse(
+                200,
+                { 
+                    savedItems: savedItems.allPosts,
+                    totalSaved: savedItems.allPosts.length
+                },
+                "Saved items retrieved successfully"
+            )
+        );
+
+    } catch (error) {
+        console.error("Error retrieving saved items:", error);
+        throw new ApiError(error.statusCode || 500, `Failed to retrieve saved items: ${error.message}`);
+    }
+});
 const editPost = asyncHandler(async(req,res)=>{
 })
 const deletePost = asyncHandler(async(req,res)=>{
