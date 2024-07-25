@@ -9,6 +9,8 @@ import DashBoard from './Pages/DashBoard.jsx'
 import AddBlog from './Pages/AddBlog.jsx'
 import ProfilePage from './Pages/ProfilePage.jsx'
 import TopicWise from './Pages/TopicWise.jsx'
+import SignUp from './Components/SignUp.jsx'
+import Login from './Components/Login.jsx'
 
 
 const router = createBrowserRouter([
@@ -20,6 +22,18 @@ const router = createBrowserRouter([
         path : '/home',
         element :(
             <HomePage/>
+        )
+      },
+      {
+        path : '/signup',
+        element :(
+            <SignUp/>
+        )
+      },
+      {
+        path : '/login',
+        element :(
+            <Login/>
         )
       },
       {
