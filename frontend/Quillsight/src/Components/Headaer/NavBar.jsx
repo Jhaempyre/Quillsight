@@ -1,9 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import useUserStore from '../../Zustand/userInfoStore.js';
+import useLogout from '../../Hooks/useLogOut.js';
 
 function NavBar() {
   const { authStats, logout } = useUserStore();
+  const {performLogout, isLoading} = useLogout()
+  const logoutUser = async()=>{
+    console.log("ho gya logout")
+    await performLogout()
+  }
   return (
     <div className="navbar bg-base-100" style={{backgroundColor:"#a0e646"}}>
         <div className="w-10 rounded-full">
@@ -17,11 +23,11 @@ function NavBar() {
       
     
     <div className="flex-1">
-    <a className="btn btn-ghost text-xl">Quillasight</a>
+    <a className="btn btn-ghost text-xl">Quillsight</a>
   </div>
   {authStats ? (
             <button
-              onClick={logout}
+              onClick={logoutUser}
               className="bg-[#0B7EC1] text-white px-4 py-2 rounded-full w-24"
             >
               Logout
