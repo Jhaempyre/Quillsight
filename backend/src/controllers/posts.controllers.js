@@ -5,6 +5,7 @@ import { uploadOnCloudinary } from "../utils/cloudinary.js";
 import { User } from "../models/user.models.js";
 import { Post } from "../models/post.models.js";
 import { CreatedPost } from "../models/createdPosts.models.js";
+import { SavedPost } from "../models/savedItems.models.js";
 
 const addPost = asyncHandler(async (req, res) => {
     try {
@@ -103,6 +104,41 @@ const getAllUpdate = asyncHandler(async(req,res)=>{
         throw new ApiError(400,`${error.message}`)
     }
 })
+const savePost = asyncHandler(async(req,res)=>{
+    console.log("request to save the liked posts")
+    try {
+        const {id} = req.body
+        const username = req.theUser.username
+        /*if (userPosts) {
+            userPosts.allPosts.push(id);
+            await userPosts.save();
+        } else {
+            userPosts = await SavedPost.create({
+                allPosts: [id],
+                username 
+            });
+        }*/
+       const savedItems = await SavedPost.findOne({username : username})
+       if(!savedItems){
+        const savedItems = await SavedPost.create({
+            allPosts: [id],
+            username
+            });
+       }else{
+        savedItems.allPosts.push(id)
+        await savedItems.save();
+       }
+        console.log("worked here");
+        return res.status(200).json(
+            new ApiResponse(
+                200,"post saved into saved items"
+            )    
+        )
+    } catch (error) {
+        console.log(error)
+        throw new ApiError(400,`${error.message}`)
+    }
+})
 const getSavedUpdate = asyncHandler(async(req,res)=>{ 
 })
 const editPost = asyncHandler(async(req,res)=>{
@@ -115,5 +151,6 @@ export {addPost,
     getAllUpdate,
     getSavedUpdate,
     editPost,
-    deletePost
+    deletePost,
+    savePost
 }

@@ -10,8 +10,8 @@ const savedPostSchema = new Schema(
             }
         ],   
         username:{
-                type:Schema.Types.ObjectId,
-                ref:'User',
+                type:String ,
+                required : true
         },
 
 },{
@@ -19,4 +19,4 @@ const savedPostSchema = new Schema(
     timestamps:true
 })
 
-export const savedPost = mongoose.model("Allpost",savedPostSchema)
+export const SavedPost = mongoose.model("Saved",savedPostSchema)
