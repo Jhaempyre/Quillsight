@@ -1,9 +1,16 @@
-import React from 'react'
+import React from 'react';
+import Profile from '../Components/Profile';
+import PostGrid from '../Components/Headaer/PostGrid';
 
-function ProfilePage() {
+
+const ProfilePage = () => {
   return (
-    <div>ProfilePage</div>
-  )
-}
 
-export default ProfilePage
+      <div className="container mx-auto">
+        <Profile />
+        <PostGrid/>
+      </div>
+  );
+};
+
+export default ProfilePage;
