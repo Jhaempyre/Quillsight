@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useAddBlog from '../Hooks/useAddBlog';
 
 const Input = ({ label, type, value, onChange, placeholder, name }) => (
   <div className="mb-4">
@@ -54,6 +55,7 @@ const categories = [
   'Home and Garden',
   'Sports',
   'Entertainment',
+  'love',
   'Environment and Sustainability',
   'Art and Culture'
 ];
@@ -99,12 +101,13 @@ const ImagePreview = ({ file }) => {
 function AddBlog() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    title: '',
+    tittle: '',
     category: '',
     content: '',
     image: null,
   });
-
+  const { addBlog, isLoading, error } = useAddBlog()
+ 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     setFormData((prevData) => ({
@@ -113,12 +116,13 @@ function AddBlog() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     // Here you would typically send the formData to your backend
     console.log('Form submitted:', formData);
+    await addBlog(formData)
     // For now, let's just navigate back to the profile page
-    navigate('/profile');
+    navigate('/dashboard/profile');
   };
 
   return (
@@ -130,12 +134,12 @@ function AddBlog() {
         <h1 className="text-3xl font-bold mb-6 text-center">Create a New Blog</h1>
         <form onSubmit={handleSubmit}>
           <Input
-            label="Title"
+            label="tittle"
             type="text"
-            value={formData.title}
+            value={formData.tittle}
             onChange={handleChange}
             placeholder="Enter your blog title"
-            name="title"
+            name="tittle"
           />
           <Select
             label="Category"
