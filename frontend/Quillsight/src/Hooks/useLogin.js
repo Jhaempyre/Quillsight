@@ -17,10 +17,14 @@ const useLogin = () => {
 
     try {
       const response = await axios.post('/api/v1/user/loginUser', { email, password });
+      //console.log("touching created")
+      //const created = await axios.get('/api/v1/post/getyourpost')
+      //console.log("created done")
       setIsLoading(false);
       // Here you might want to store the user's token in localStorage or context
       // Update the user data in the store
       console.log(response.data.data.loggedUser)
+      //console.log(created.data.data)
       loggedUser(response.data.data.loggedUser);
       
       // Update the auth status in the store

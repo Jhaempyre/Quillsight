@@ -152,7 +152,7 @@ const getSavedUpdate = asyncHandler(async (req, res) => {
         // Find the SavedPost document for the user
         const savedItems = await SavedPost.findOne({ username }).populate({
                                               path: 'allPosts',
-                                              select: 'title image content category createdAt' // Select the fields you want to include
+                                              select: 'tittle image content category createdAt' // Select the fields you want to include
                                           });
 
         if (!savedItems) {

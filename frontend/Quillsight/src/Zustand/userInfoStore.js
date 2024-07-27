@@ -31,7 +31,8 @@ const useUserStore =create(
           }),
           authStatus : (data) => set({
             authStats : data
-          }) ,
+          }),
+          
          
         }),
         {

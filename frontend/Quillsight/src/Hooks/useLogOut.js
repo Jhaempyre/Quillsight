@@ -25,7 +25,7 @@ const useLogout = () => {
       
       // Set the auth status to false
       authStatus(false);
-      navigate("/home")
+      navigate("/")
       
       setIsLoading(false);
       return true; // Logout successful

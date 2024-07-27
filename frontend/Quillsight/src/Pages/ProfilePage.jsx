@@ -8,7 +8,6 @@ const ProfilePage = () => {
 
       <div className="container mx-auto">
         <Profile />
-        <PostGrid/>
       </div>
   );
 };
