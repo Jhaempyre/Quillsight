@@ -49,7 +49,7 @@ const BlogPost = () => {
   if (!post) return <div className="text-center mt-20">Post not found.</div>;
 
   return (
-    <div className="bg-gray-100 min-h-screen py-10">
+    <div className="bg-gray-100 min-h-screen py-10" style={{backgroundColor:"#E8FFCC"}}>
       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
         <div className="relative h-96">
           <img 
@@ -73,6 +73,7 @@ const BlogPost = () => {
               className={`text-3xl ${isSaved ? 'text-red-500' : 'text-gray-500'} hover:text-red-500 transition-colors duration-300`}
             >
               {isSaved ? '♥' : '♡'}
+              <p style={{fontSize:"16px", fontWeight:"bold"}}>Save</p>
             </button>
           </div>
 
