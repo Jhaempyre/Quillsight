@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios'; // Make sure to install axios
+import axios from 'axios';
+import useSavePost from '../Hooks/useSavePost';
 
 const BlogPost = () => {
   const { id } = useParams();
+  console.log(id);
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isSaved, setIsSaved] = useState(false);
+  const {saveBlog, isLoading, } = useSavePost()
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -23,6 +27,19 @@ const BlogPost = () => {
 
     fetchPost();
   }, [id]);
+
+  const handleUsernameClick = (username) => {
+    console.log(username);
+  };
+
+  const handleSavePost = async(id) => {
+    setIsSaved((prev) => !prev);
+    console.log("rama",id);
+    // Here you would typically call an API to save the post
+    await saveBlog(id)
+    console.log("saved")
+
+  };
 
   if (loading) return <div className="text-center mt-20">Loading...</div>;
   if (error) return <div className="text-center mt-20 text-red-500">{error}</div>;
@@ -44,9 +61,17 @@ const BlogPost = () => {
         </div>
         
         <div className="px-8 py-6">
-          <h1 className="text-4xl font-bold text-gray-800 leading-tight mb-4">
-            {post.title}
-          </h1>
+          <div className="flex justify-between items-center mb-4">
+            <h1 className="text-4xl font-bold text-gray-800 leading-tight">
+              {post.title}
+            </h1>
+            <button 
+              onClick={() => handleSavePost(post.id)}
+              className={`text-3xl ${isSaved ? 'text-red-500' : 'text-gray-500'} hover:text-red-500 transition-colors duration-300`}
+            >
+              {isSaved ? '♥' : '♡'}
+            </button>
+          </div>
 
           <div className="flex justify-between items-center mb-8 pb-4 border-b border-gray-200">
             <div className="flex items-center">
@@ -55,7 +80,12 @@ const BlogPost = () => {
                 alt={post.author} 
                 className="w-12 h-12 rounded-full mr-4"
               />
-              <span className="text-xl text-gray-700">{post.author}</span>
+              <button 
+                onClick={() => handleUsernameClick(post.author)}
+                className="text-xl text-gray-700 hover:underline"
+              >
+                {post.author}
+              </button>
             </div>
             <span className="text-gray-500 italic">{new Date(post.date).toLocaleDateString()}</span>
           </div>

@@ -151,6 +151,7 @@ const savePost = asyncHandler(async(req,res)=>{
     console.log("request to save the liked posts")
     try {
         const {id} = req.body
+        console.log(id)
         const username = req.theUser.username
         /*if (userPosts) {
             userPosts.allPosts.push(id);

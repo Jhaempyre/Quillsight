@@ -19,7 +19,7 @@ router.route("/savepost").post(authVerify,savePost)
 router.route("/savedpost").get(authVerify,getSavedUpdate)
 router.route("/editPost").post(authVerify,upload.single("image"),editPost)
 router.route("/deletePost").post(authVerify,deletePost)
-router.route("/:id").get( getThePost);
+router.route("/:id").get(authVerify, getThePost);
 
 
 export default router
