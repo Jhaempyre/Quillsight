@@ -14,8 +14,8 @@ function NavBar() {
     <div className="navbar bg-base-100" style={{backgroundColor:"#a0e646"}}>
         <div className="w-10 rounded-full">
           <img
-            alt="Tailwind CSS Navbar component"
-            src="http://res.cloudinary.com/du7ctzi61/image/upload/v1721811170/xeszxcosoqkp4thavm9j.png" 
+            alt="logo"
+            src= "http://res.cloudinary.com/du7ctzi61/image/upload/v1721811170/xeszxcosoqkp4thavm9j.png" 
             style={{borderRadius:"25px"}}/>
             
         </div>
