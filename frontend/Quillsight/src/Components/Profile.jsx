@@ -118,13 +118,15 @@ const Profile = () => {
         <button 
           className={`px-4 py-2 rounded ${activeTab === 'created' ? 'bg-green-500 text-white' : 'bg-green-300'}`}
           onClick={() => setActiveTab('created')}
+          style={{backgroundColor:"#94DF34", color:"black", borderRadius:"20px"}}
         >
           Created
         </button>
-        <Link to="/addBlog" className="bg-black text-white px-4 py-2 rounded">+</Link>
+        <Link to="/addBlog" className="bg-black text-white px-4 py-2 rounded" style={{fontWeight:"bolder", borderRadius:"25px"}}>+</Link>
         <button 
           className={`px-4 py-2 rounded ${activeTab === 'saved' ? 'bg-green-500 text-white' : 'bg-green-300'}`}
           onClick={() => setActiveTab('saved')}
+          style={{backgroundColor:"#94DF34", color:"black", borderRadius:"20px"}}
         >
           Saved
         </button>
@@ -132,7 +134,7 @@ const Profile = () => {
         {console.log(savedBlogs)}
       </div>
       <br /><hr/>
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2" >
         {activeTab === 'created' ? renderPosts(createdBlogs[0]) : renderPosts(savedBlogs[0])}
       </div>
     </div>
