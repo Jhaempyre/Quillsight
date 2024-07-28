@@ -30,6 +30,7 @@ function NavBar() {
             <button
               onClick={logoutUser}
               className="bg-[#0B7EC1] text-white px-4 py-2 rounded-full w-24"
+              style={{width:"85px"}}
             >
               Logout
             </button>
