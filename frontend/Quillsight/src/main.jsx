@@ -11,6 +11,7 @@ import ProfilePage from './Pages/ProfilePage.jsx'
 import TopicWise from './Pages/TopicWise.jsx'
 import SignUp from './Components/SignUp.jsx'
 import Login from './Components/Login.jsx'
+import BlogPost from './Pages/BlogPost.jsx'
 
 
 const router = createBrowserRouter([
@@ -67,6 +68,13 @@ const router = createBrowserRouter([
                 <TopicWise/>
                
           )
+      },
+      {
+        path : '/dashboard/:id',
+        element : (
+          <BlogPost/>
+        )
+
       }
     ]
   }

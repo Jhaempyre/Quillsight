@@ -4,7 +4,8 @@ import { changePassword,
       loginUser,
        logOutUser,
         registerUser,
-         follow, followerList, followingList, unfollow } from "../controllers/user.controllers.js";
+         follow, followerList, followingList, unfollow, 
+         getAUserAndPost} from "../controllers/user.controllers.js";
 import { authVerify } from "../middlewares/auth.middlewares.js";
 import { upload } from "../middlewares/multer.middlewares.js";
 const router = Router()
@@ -18,5 +19,6 @@ router.route("/follow").post(authVerify,follow)
 router.route("/unfollow").post(authVerify,unfollow)
 router.route("/followerList").post(authVerify,followerList)
 router.route("/followingList").post(authVerify,followingList)
+router.route("/:username").get(getAUserAndPost)
 
 export default router 

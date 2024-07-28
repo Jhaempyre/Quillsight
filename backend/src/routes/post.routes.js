@@ -7,6 +7,7 @@ import { addPost,
        getAllUpdate,
         getCreatedPost,
          getSavedUpdate,
+          getThePost,
           savePost } from "../controllers/posts.controllers.js";
 import { follow, followerList, followingList, unfollow } from "../controllers/user.controllers.js";
 
@@ -18,6 +19,7 @@ router.route("/savepost").post(authVerify,savePost)
 router.route("/savedpost").get(authVerify,getSavedUpdate)
 router.route("/editPost").post(authVerify,upload.single("image"),editPost)
 router.route("/deletePost").post(authVerify,deletePost)
+router.route("/:id").get( getThePost);
 
 
 export default router

@@ -4,6 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import {uploadOnCloudinary} from "../utils/cloudinary.js";
 import {User} from "../models/user.models.js";
 import { Follows } from "../models/follows.models.js";
+import { CreatedPost } from "../models/createdPosts.models.js";
 
 
 
@@ -203,6 +204,34 @@ const followerList = asyncHandler(async(req,res)=>{
 const followingList = asyncHandler(async(req,res)=>{
 
 })
+const getAUserAndPost = asyncHandler(async(req,res)=>{
+    try {
+        const {username} = req.params;
+        const user = await User.findOne({username});
+        if(!user) throw new ApiError(404, "User not found");
+        const userPosts = await CreatedPost.findOne({username:username}).populate('allPosts');
+            console.log(userPosts)
+            if(!userPosts){
+                throw new ApiError(400,"No post founds")
+            }
+        const response = {
+            user: user,
+            posts: userPosts.allPosts
+        }
+        return res.status(200)
+        .json(
+            new ApiResponse(
+                200, 
+                response,
+                 "User and posts found"))
+    } catch (error) {
+        console.log(error)
+        throw new ApiError(400,`${error.message}`)
+        
+    }
+
+
+})
 export {registerUser,
         loginUser,
         logOutUser,
@@ -211,5 +240,6 @@ export {registerUser,
         follow,
         unfollow,
         followerList,
-        followingList
+        followingList,
+        getAUserAndPost
        }

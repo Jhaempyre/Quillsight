@@ -59,6 +59,49 @@ const addPost = asyncHandler(async (req, res) => {
         throw new ApiError(400, `${error.message}`);
     }
 });
+const getThePost = asyncHandler(async(req,res)=>{
+    try {
+    const { id } = req.params;
+     // Find the post by ID
+     const post = await Post.findById(id);
+     if (!post) {
+        throw new ApiError(404, "Post not found");
+      }
+      // Find the user who created the post
+    const createdPost = await CreatedPost.findOne({ allPosts: id });
+    if (!createdPost) {
+        throw new ApiError(404, "Post creator not found");
+      }
+     // Find the user details
+     const user = await User.findOne({ username: createdPost.username });
+     if (!user) {
+        throw new ApiError(404, "User not found");
+      }
+        // Construct the response object
+        const response = {
+            id: post._id,
+            title: post.tittle,
+            content: post.content,
+            image: post.image,
+            category: post.category,
+            date: post.createdAt,
+            author: user.username,
+            authorAvatar: user.avtar,
+            authorBio: user.bio
+          };
+          return res.status(200).json(
+            new ApiResponse(
+              200,
+              response,
+              "Post retrieved successfully"
+            )
+          );
+        } catch (error) {
+            console.log(error);
+            throw new ApiError(error.statusCode || 500, error.message || "Something went wrong while fetching the post");
+          }
+          
+})
 const getCreatedPost = asyncHandler(async(req,res)=>{
     console.log("request to get the posts")
     try {
@@ -273,11 +316,13 @@ const deletePost = asyncHandler(async (req, res) => {
     }
 });
 
+
 export {addPost,
     getCreatedPost,
     getAllUpdate,
     getSavedUpdate,
     editPost,
     deletePost,
-    savePost
+    savePost,
+    getThePost
 }
