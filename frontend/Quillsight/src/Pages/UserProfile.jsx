@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 
@@ -8,11 +8,12 @@ function UserProfile() {
   const [posts, setPosts] = useState([]);
   const [activeTab, setActiveTab] = useState('created');
   const { username } = useParams();
+  const naviagte = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = `/api/v1/user/${username}`
+        const url = `/api/v1/user/${username}`;
         const response = await axios.get(url);
         const { user, posts } = response.data.data;
         setUser(user);
@@ -26,6 +27,11 @@ function UserProfile() {
     }
   }, [username]);
 
+  const handleCardClick = (id) => {
+    console.log(id);
+    naviagte(`/dashboard/blog/${id}`)
+  };
+
   const renderPosts = (posts) => {
     return posts.map((post) => (
       <div className='ml-12' key={post._id}>
@@ -34,6 +40,7 @@ function UserProfile() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
+          onClick={() => handleCardClick(post._id)}
         >
           <figure>
             <img

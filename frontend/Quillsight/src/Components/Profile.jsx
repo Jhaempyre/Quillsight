@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useUserStore from '../Zustand/userInfoStore';
 import { motion } from 'framer-motion';
 import useBlogStore from '../Zustand/userBlogs';
@@ -13,7 +13,7 @@ const Profile = () => {
   const savedBlogs = useBlogStore((state)=>state.savedBlogs)
 
   const [activeTab, setActiveTab] = useState('created');
-
+  const navigate = useNavigate();
   useEffect((()=>{
     const fetchAllUpdate = async()=>{
       try {
@@ -69,7 +69,10 @@ const Profile = () => {
     { id: 20, title: 'Health and Fitness', content: 'Stay fit and healthy with these tips', image: 'https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp', category: 'Health' },
   ];*/
 
-
+  const handleCardClick = (id) => {
+    console.log(id);
+    navigate(`/dashboard/blog/${id}`)
+  };
 
   const renderPosts = (posts) => {
     return posts.map((post) => (
@@ -79,6 +82,7 @@ const Profile = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
+          onClick={() => handleCardClick(post._id)}
         >
           <figure>
             <img

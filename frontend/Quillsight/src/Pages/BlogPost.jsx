@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import useSavePost from '../Hooks/useSavePost';
 
@@ -11,6 +11,7 @@ const BlogPost = () => {
   const [error, setError] = useState(null);
   const [isSaved, setIsSaved] = useState(false);
   const {saveBlog, isLoading, } = useSavePost()
+  const naviagte = useNavigate()
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -30,6 +31,8 @@ const BlogPost = () => {
 
   const handleUsernameClick = (username) => {
     console.log(username);
+    naviagte(`/dashboard/public/${username}`)
+    
   };
 
   const handleSavePost = async(id) => {
