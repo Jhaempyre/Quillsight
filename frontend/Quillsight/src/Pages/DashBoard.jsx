@@ -11,15 +11,15 @@ function DashBoard() {
   };
 
   return (
-    <div className="flex gap-6 p-6 bg-gray-200 min-h-screen">
-      <div className="flex-none">
+    <div className="flex gap-6 p-6 bg-gray-200 min-h-screen" style={{backgroundColor:"#E8FFCC"}}>
+      <div className="flex-none" >
         <Category 
           topics={topics} 
           onTopicSelect={handleTopicSelect} 
           selectedTopic={selectedTopic}
         />
       </div>
-      <div className="flex-grow">
+      <div className="flex-grow" >
         <Preview selectedTopic={selectedTopic} />
       </div>
     </div>
