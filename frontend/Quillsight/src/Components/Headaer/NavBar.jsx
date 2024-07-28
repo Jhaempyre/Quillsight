@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import useUserStore from '../../Zustand/userInfoStore.js';
 import useLogout from '../../Hooks/useLogOut.js';
-import logoImage from './image/logo.jpg';
+
 
 function NavBar() {
   const { authStats, logout } = useUserStore();
@@ -16,7 +16,7 @@ function NavBar() {
         <div className="w-10 rounded-full">
           <img
             alt="logo"
-            src={logoImage}
+            src="http://res.cloudinary.com/du7ctzi61/image/upload/v1721811170/xeszxcosoqkp4thavm9j.png"
             style={{borderRadius:"25px"}}/>
             
         </div>

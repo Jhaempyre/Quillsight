@@ -12,6 +12,9 @@ import TopicWise from './Pages/TopicWise.jsx'
 import SignUp from './Components/SignUp.jsx'
 import Login from './Components/Login.jsx'
 import BlogPost from './Pages/BlogPost.jsx'
+import UserProfile from './Pages/UserProfile.jsx'
+
+
 
 
 const router = createBrowserRouter([
@@ -73,6 +76,13 @@ const router = createBrowserRouter([
         path : '/dashboard/:id',
         element : (
           <BlogPost/>
+        )
+
+      },
+      {
+        path : '/dashboard/:username',
+        element : (
+          <UserProfile/>
         )
 
       }
