@@ -1,12 +1,27 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Category from '../Components/Category.jsx'
 import Preview from '../Components/Preview.jsx'
 
 function DashBoard() {
+  const topics = ["Technology", "Science", "Art", "Music", "Sports", "Food", "Travel", "Fashion", "Health", "Education"];
+  const [selectedTopic, setSelectedTopic] = useState(topics[0]);
+
+  const handleTopicSelect = (topic) => {
+    setSelectedTopic(topic);
+  };
+
   return (
-    <div style={{display:"flex"}}>
-      <div><Category/></div>
-      <div><Preview/></div>
+    <div className="flex gap-6 p-6 bg-gray-200 min-h-screen">
+      <div className="flex-none">
+        <Category 
+          topics={topics} 
+          onTopicSelect={handleTopicSelect} 
+          selectedTopic={selectedTopic}
+        />
+      </div>
+      <div className="flex-grow">
+        <Preview selectedTopic={selectedTopic} />
+      </div>
     </div>
   )
 }

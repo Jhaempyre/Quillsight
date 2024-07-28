@@ -1,20 +1,24 @@
 import React from 'react'
 
-export default function Category() {
-    
+export default function Category({ topics, onTopicSelect, selectedTopic }) {
   return (
-    <div style={{height:"540px", width:"190px", backgroundColor:"#94DF34", margin:"10px 10px 0px 10px", borderRadius:"15px"}}>
-        <button className="btn" style={{marginLeft:"20%", marginTop:"15px",width:"100px", borderRadius:"25px", backgroundColor:"#C1FF72"}}>Topic</button> 
-        <div>
-        <button className="btn" style={{marginLeft:"10%", marginTop:"15px",width:"150px", borderRadius:"25px", backgroundColor:"green", opacity: "0.5", color:"white"}}>Topic</button> 
-        <button className="btn" style={{marginLeft:"10%", marginTop:"15px",width:"150px", borderRadius:"25px", backgroundColor:"green", opacity: "0.5", color:"white"}}>Topic</button>
-        <button className="btn" style={{marginLeft:"10%", marginTop:"15px",width:"150px", borderRadius:"25px", backgroundColor:"green", opacity: "0.5", color:"white"}}>Topic</button>
-        <button className="btn" style={{marginLeft:"10%", marginTop:"15px",width:"150px", borderRadius:"25px", backgroundColor:"green", opacity: "0.5", color:"white"}}>Topic</button>
-        <button className="btn" style={{marginLeft:"10%", marginTop:"15px",width:"150px", borderRadius:"25px", backgroundColor:"green", opacity: "0.5", color:"white"}}>Topic</button> 
-        <button className="btn" style={{marginLeft:"10%", marginTop:"15px",width:"150px", borderRadius:"25px", backgroundColor:"green", opacity: "0.5", color:"white"}}>Topic</button>
-        <button className="btn" style={{marginLeft:"10%", marginTop:"15px",width:"150px", borderRadius:"25px", backgroundColor:"green", opacity: "0.5", color:"white"}}>Topic</button>
-        
-        </div>
+    <div className="bg-green-400 rounded-2xl p-6 shadow-lg max-w-xs">
+      <h2 className="text-white text-2xl font-bold mb-6 text-center">Topics</h2>
+      <div className="flex flex-col space-y-3 max-h-[400px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-green-600 scrollbar-track-green-300">
+        {topics.map((topic, index) => (
+          <button 
+            key={index}
+            className={`py-2 px-4 rounded-full text-white font-semibold transition-all duration-300 ${
+              selectedTopic === topic 
+                ? 'bg-green-700 shadow-md' 
+                : 'bg-green-500 hover:bg-green-600 hover:-translate-y-0.5'
+            }`}
+            onClick={() => onTopicSelect(topic)}
+          >
+            {topic}
+          </button>
+        ))}
+      </div>
     </div>
   )
 }
