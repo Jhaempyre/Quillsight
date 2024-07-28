@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 
@@ -7,11 +7,13 @@ function UserProfile() {
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
   const [activeTab, setActiveTab] = useState('created');
+  const { username } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('/api/v1/user/${usernmae}');
+        const url = `/api/v1/user/${username}`
+        const response = await axios.get(url);
         const { user, posts } = response.data.data;
         setUser(user);
         setPosts(posts);
@@ -19,8 +21,10 @@ function UserProfile() {
         console.log('Error fetching data:', error.message);
       }
     };
-    fetchData();
-  }, []);
+    if (username) {
+      fetchData();
+    }
+  }, [username]);
 
   const renderPosts = (posts) => {
     return posts.map((post) => (
