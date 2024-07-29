@@ -7,10 +7,15 @@ import useLogout from '../../Hooks/useLogOut.js';
 function NavBar() {
   const { authStats, logout } = useUserStore();
   const {performLogout, isLoading} = useLogout()
+  const user = useUserStore((state) => state.userData);
   const navigate = useNavigate()
   const ClickHandler = ()=>{
     console.log("server")
     navigate("/dashboard")
+  }
+  const imageclick = ()=>{
+    console.log("client")
+    navigate("/dashboard/profile")
   }
   const logoutUser = async()=>{
     console.log("ho gya logout")
@@ -32,13 +37,24 @@ function NavBar() {
     <a className="btn btn-ghost text-xl" onClick={()=>{ClickHandler()}}>Quillsight</a>
   </div>
   {authStats ? (
+            <div>
+              <div className="w-10 rounded-full">
+          <img
+            alt="photo"
+            src = {user.avtar}
+            style={{borderRadius:"25px"}}
+            onClick={()=>{imageclick()}}/>
+            
+        </div>
+        
             <button
               onClick={logoutUser}
-              className="bg-[#0B7EC1] text-white px-4 py-2 rounded-full w-24"
+              className="bg-[#0B7EC1] text-white px-4 py-2 rounded-full w-24 ml-2"
               style={{width:"85px"}}
             >
               Logout
             </button>
+            </div>
           ) : (
             <div>
               <Link
