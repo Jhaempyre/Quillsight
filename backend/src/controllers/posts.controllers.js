@@ -9,6 +9,8 @@ import { SavedPost } from "../models/savedItems.models.js";
 
 const addPost = asyncHandler(async (req, res) => {
     try {
+
+        //use kali linux and you will hate windows 
         console.log("got request to add a post");
         const { tittle, content, category } = req.body;
         const username = req.theUser?.username;
