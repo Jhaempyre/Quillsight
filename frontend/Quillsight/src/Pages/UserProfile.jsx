@@ -21,7 +21,7 @@ function UserProfile() {
         });
         const url = `/user/${username}`;
         const response = await axios.get(url);
-        console.log(response.data)
+        console.log(response)
         const { user, posts } = response.data.data;
 
         setUser(user);
