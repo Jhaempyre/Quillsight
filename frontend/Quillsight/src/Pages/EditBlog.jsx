@@ -17,7 +17,7 @@ const EditBlog = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const response = await axios.get(`https://quillsight.vercel.app/api/v1/post/${id}`);
+        const response = await axios.get(`https://quillsight.onrender.com/api/v1/post/${id}`);
         setBlog(response.data.data);
         setIsLoading(false);
       } catch (err) {
@@ -50,7 +50,7 @@ const EditBlog = () => {
         formData.append('image', blog.image);
       }
 
-      const response = await axios.post('https://quillsight.vercel.app/api/v1/post/editPost', formData, {
+      const response = await axios.post('https://quillsight.onrender.com/api/v1/post/editPost', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

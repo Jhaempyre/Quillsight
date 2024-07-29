@@ -13,7 +13,7 @@ function UserProfile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = `https://quillsight.vercel.app/api/v1/user/${username}`;
+        const url = `https://quillsight.onrender.com/api/v1/user/${username}`;
         const response = await axios.get(url);
         const { user, posts } = response.data.data;
         setUser(user);

@@ -17,7 +17,7 @@ const Profile = () => {
   const handleDelete = async (postId) => {
     console.log("delete",postId)
     try {
-      const response = await axios.post(`https://quillsight.vercel.app/api/v1/post/deletePost`,{postId});
+      const response = await axios.post(`https://quillsight.onrender.com/api/v1/post/deletePost`,{postId});
       if (response.data.success) {
         createdBlogStore.removeCreatedBlog({postId});
       } else {
@@ -32,7 +32,7 @@ const Profile = () => {
   };
   const handleRemoveSaved = async (postId) => {
     try {
-      const response = await axios.post(`https://quillsight.vercel.app/api/v1/post/removesavedpost`,{postId});
+      const response = await axios.post(`https://quillsight.onrender.com/api/v1/post/removesavedpost`,{postId});
       if (response.data.success) {
         createdBlogStore.removeSavedBlog(postId);
       } else {
@@ -46,8 +46,8 @@ const Profile = () => {
     const fetchAllUpdate = async()=>{
       try {
         console.log("sending request to backend for getting all updates ")
-        const getCreatedBlog = await axios.get('https://quillsight.vercel.app/api/v1/post/getyourpost')
-        const getSavedBlog = await axios.get("https://quillsight.vercel.app/api/v1/post/savedpost")
+        const getCreatedBlog = await axios.get('https://quillsight.onrender.com/api/v1/post/getyourpost')
+        const getSavedBlog = await axios.get("https://quillsight.onrender.com/api/v1/post/savedpost")
         console.log("updates",getCreatedBlog);
         console.log("getCreatedBlog",getCreatedBlog.data.data)
         console.log("getSavedBlog",getSavedBlog);

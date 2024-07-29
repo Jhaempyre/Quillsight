@@ -21,7 +21,7 @@ const BlogPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`https://quillsight.vercel.app/api/v1/post/${id}`);
+        const response = await axios.get(`https://quillsight.onrender.com/api/v1/post/${id}`);
         setPost(response.data.data);
         setLoading(false);
       } catch (err) {

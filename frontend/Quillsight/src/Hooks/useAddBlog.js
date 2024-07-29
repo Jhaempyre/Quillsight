@@ -16,7 +16,7 @@ const useAddBlog = ()=>{
 
         try {
             console.log("sending blog data to backend")
-            const response = await axios.post('https://quillsight.vercel.app/api/v1/post/addPost', formData, {
+            const response = await axios.post('https://quillsight.onrender.com/api/v1/post/addPost', formData, {
                 headers: {
                   'Content-Type': 'multipart/form-data',
                 },
