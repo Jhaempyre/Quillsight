@@ -5,10 +5,7 @@ import axios from 'axios';
 import useBlogStore from '../Zustand/userBlogs.js'; // Update this path
 
 
-const api = axios.create({
-  baseURL: 'https://quillsight.onrender.com/api/v1',
-  withCredentials: true, // This is crucial for sending and receiving cookies
-});
+
 
 function DashBoard() {
   const topics = [
@@ -46,6 +43,11 @@ function DashBoard() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
+        const api = axios.create({
+          baseURL: 'https://quillsight.onrender.com/api/v1',
+          withCredentials: true, // This is crucial for sending and receiving cookies
+        });
+        
         console.log("Getting posts");
         const response = await axios.get('/post/getAllPost');
         setAllPosts(response.data.data);
