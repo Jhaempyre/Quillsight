@@ -41,7 +41,7 @@ function DashBoard() {
     const fetchPosts = async () => {
       try {
         console.log("Getting posts");
-        const response = await axios.get('/api/v1/post/getAllPost');
+        const response = await axios.get('https://quillsight.vercel.app/api/v1/post/getAllPost');
         setAllPosts(response.data.data);
         console.log("set", allPosts);
       } catch (error) {

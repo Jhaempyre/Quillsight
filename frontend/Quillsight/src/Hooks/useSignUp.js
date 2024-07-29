@@ -11,7 +11,7 @@ const useSignUp = () => {
     setError(null);
 
     try {
-      const response = await axios.post('/api/v1/user/registerUser', formData, {
+      const response = await axios.post('https://quillsight.vercel.app/api/v1/user/registerUser', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

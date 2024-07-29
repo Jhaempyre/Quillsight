@@ -18,7 +18,7 @@ const useLogout = () => {
 
     try {
       // Assuming you have a logout endpoint. If not, you can remove this API call.
-      await axios.post('/api/v1/user/logout');
+      await axios.post('https://quillsight.vercel.app/api/v1/user/logout');
       
       // Clear the user data from the store
       logout();
@@ -26,7 +26,7 @@ const useLogout = () => {
       // Set the auth status to false
       authStatus(false);
       navigate("/")
-      
+      //**********************************************************have to remove post from zustand here ****************************************** */
       setIsLoading(false);
       return true; // Logout successful
     } catch (err) {

@@ -20,10 +20,10 @@ const useLogin = () => {
         setError(null);
 
         try {
-            const response = await axios.post('/api/v1/user/loginUser', { email, password });
+            const response = await axios.post('https://quillsight.vercel.app/api/v1/user/loginUser', { email, password });
 
-            const getCreatedBlog = await axios.get('/api/v1/post/getyourpost');
-            const getSavedBlog = await axios.get("/api/v1/post/savedpost");
+            const getCreatedBlog = await axios.get('https://quillsight.vercel.app/api/v1/post/getyourpost');
+            const getSavedBlog = await axios.get("https://quillsight.vercel.app/api/v1/post/savedpost");
 
             if (getCreatedBlog.data.error) {
                 throw new Error(getCreatedBlog.data.error);
