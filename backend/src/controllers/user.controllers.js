@@ -90,7 +90,7 @@ const loginUser = asyncHandler(async(req,res)=>{
             sameSite: 'None'
         }
         return res.status(200)
-        .header('Access-Control-Allow-Origin', 'https://quillsight.vercel.app/')
+        .header('Access-Control-Allow-Origin', 'https://quillsight.vercel.app')
         .header('Access-Control-Allow-Credentials', true)
         .cookie("accessToken", accessToken, options)
         .cookie("refreshToken", refreshToken, options)
