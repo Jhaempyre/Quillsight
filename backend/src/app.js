@@ -3,10 +3,12 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 const app =  express()
 // to permit the cross origin 
-/*app.use(cors({
-    origin:process.env.CORS_ORIGIN,
-    credentials:true
-}))*/
+app.use(cors({
+    origin:'https://quillsight.vercel.app',
+    credentials:true,
+    optionsSuccessStatus: 200
+}))
+app.use(cors(corsOptions));
 
 // to parse the incoming requests with JSON payloads (from req.body)
 
