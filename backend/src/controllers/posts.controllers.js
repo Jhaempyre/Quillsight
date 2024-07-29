@@ -306,7 +306,43 @@ const deletePost = asyncHandler(async (req, res) => {
         throw new ApiError(error.statusCode || 500, `Failed to delete post: ${error.message}`);
     }
 });
+const removeSavedItem = async (req, res) => {
+    console.log("Request to remove a saved post");
+    try {
+        const { postId } = req.body;
+        const username = req.theUser.username;
 
+        if (!postId) {
+            throw new ApiError(400, "Post ID is required");
+        }
+
+        if (!username) {
+            throw new ApiError(401, "User not authenticated");
+        }
+
+        // Find the user's saved posts document
+        const savedPost = await SavedPost.findOne({ username });
+
+        if (!savedPost) {
+            throw new ApiError(404, "Saved items not found for this user");
+        }
+
+        // Remove the postId from the allPosts array
+        savedPost.allPosts.pull(postId);
+        await savedPost.save();
+
+        return res.status(200).json(
+            new ApiResponse(
+                200,
+                null,
+                "Saved post removed successfully"
+            )
+        );
+    } catch (error) {
+        console.error("Error removing saved post:", error);
+        throw new ApiError(error.statusCode || 500, `Failed to remove saved post: ${error.message}`);
+    }
+};
 
 export {addPost,
     getCreatedPost,
@@ -315,5 +351,6 @@ export {addPost,
     editPost,
     deletePost,
     savePost,
-    getThePost
+    getThePost,
+    removeSavedItem
 }
