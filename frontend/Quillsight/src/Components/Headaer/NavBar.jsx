@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useUserStore from '../../Zustand/userInfoStore.js';
 import useLogout from '../../Hooks/useLogOut.js';
 
@@ -7,6 +7,11 @@ import useLogout from '../../Hooks/useLogOut.js';
 function NavBar() {
   const { authStats, logout } = useUserStore();
   const {performLogout, isLoading} = useLogout()
+  const navigate = useNavigate()
+  const ClickHandler = ()=>{
+    console.log("server")
+    navigate("/dashboard")
+  }
   const logoutUser = async()=>{
     console.log("ho gya logout")
     await performLogout()
@@ -16,7 +21,7 @@ function NavBar() {
         <div className="w-10 rounded-full">
           <img
             alt="logo"
-            src="http://res.cloudinary.com/du7ctzi61/image/upload/v1721811170/xeszxcosoqkp4thavm9j.png"
+            src="https://res.cloudinary.com/du7ctzi61/image/upload/v1722228689/WhatsApp_Image_2024-07-28_at_11.59.55_42e21000_irtzvr.jpg"
             style={{borderRadius:"25px"}}/>
             
         </div>
@@ -24,7 +29,7 @@ function NavBar() {
       
     
     <div className="flex-1">
-    <a className="btn btn-ghost text-xl">Quillsight</a>
+    <a className="btn btn-ghost text-xl" onClick={()=>{ClickHandler()}}>Quillsight</a>
   </div>
   {authStats ? (
             <button

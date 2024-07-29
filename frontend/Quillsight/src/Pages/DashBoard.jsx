@@ -3,7 +3,7 @@ import Category from '../Components/Category.jsx'
 import Preview from '../Components/Preview.jsx'
 
 function DashBoard() {
-  const topics = ["Technology", "Science", "Art", "Music", "Sports", "Food", "Travel", "Fashion", "Health", "Education"];
+  const topics = ["Technology", "Science", "Art", "Music", "Sports", "Food", "Travel", "Fashion", "Health", "Education","ram","sita","gita","heera","mori","moti"];
   const [selectedTopic, setSelectedTopic] = useState(topics[0]);
 
   const handleTopicSelect = (topic) => {
