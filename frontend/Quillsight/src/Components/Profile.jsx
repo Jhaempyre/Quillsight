@@ -30,11 +30,11 @@ const Profile = () => {
   const handleEdit = (id) => {
     navigate(`/editBlog/${id}`);
   };
-  const handleRemoveSaved = async (id) => {
+  const handleRemoveSaved = async (postId) => {
     try {
-      const response = await axios.delete(`/api/v1/post/removesavedpost/${id}`);
+      const response = await axios.post(`/api/v1/post/removesavedpost`,{postId});
       if (response.data.success) {
-        createdBlogStore.removeSavedBlog(id);
+        createdBlogStore.removeSavedBlog(postId);
       } else {
         throw new Error(response.data.message);
       }

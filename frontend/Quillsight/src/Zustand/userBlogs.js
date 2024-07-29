@@ -27,6 +27,16 @@ const useBlogStore = create(
                 removeSavedBlog: (id) => set((state) => ({
                     savedBlogs: [state.savedBlogs[0].filter(blog => blog._id !== id)]
                   })),  
+                  isPostSaved: (id) => get().savedBlogs[0].some(blog => blog._id === id),
+        
+                  toggleSavedBlog: (id, post) => set((state) => {
+                    const isSaved = state.savedBlogs[0].some(blog => blog._id === id);
+                    return {
+                      savedBlogs: isSaved
+                        ? [state.savedBlogs[0].filter(blog => blog._id !== id)]
+                        : [state.savedBlogs[0].concat(post)]
+                    };
+                }),  
             }),
             {
                 name: "All new Updates"
