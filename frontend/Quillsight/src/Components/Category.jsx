@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 
 export default function Category({ topics, onTopicSelect, selectedTopic }) {
   return (
     <div className="bg-green-400 rounded-2xl p-6 shadow-lg max-w-xs" style={{backgroundColor:"#94DF34"}}>
       <h2 className="text-white text-2xl font-bold mb-6 text-center">Topics</h2>
-      <div className="flex flex-col space-y-3 max-h-[400px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-green-600 scrollbar-track-green-300" style={{backgroundColor:"##C1FF72"}} >
+      <div className="flex flex-col space-y-3 max-h-[400px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-green-600 scrollbar-track-green-300">
         {topics.map((topic, index) => (
           <button
             key={index}
@@ -20,5 +20,5 @@ export default function Category({ topics, onTopicSelect, selectedTopic }) {
         ))}
       </div>
     </div>
-  )
+  );
 }

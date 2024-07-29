@@ -6,16 +6,21 @@ const useBlogStore = create(
         persist(
             (set) => ({
                 createdBlogs: [],
-                savedBlogs : [] ,
-
+                savedBlogs: [],
+                allPosts: [], // New state for all posts
+                
                 getCreatedUpdate: (data) => set((state) => ({
                     createdBlogs: [data]
                 })),
-
+                
                 getSavedUpdate: (data) => set((state) => ({
                     savedBlogs: [data]
                 })),
-
+                
+                // New action to update allPosts
+                setAllPosts: (posts) => set((state) => ({
+                    allPosts: posts
+                })),
             }),
             {
                 name: "All new Updates"
