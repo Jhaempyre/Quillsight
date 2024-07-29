@@ -4,6 +4,12 @@ import Preview from '../Components/Preview.jsx';
 import axios from 'axios';
 import useBlogStore from '../Zustand/userBlogs.js'; // Update this path
 
+
+const api = axios.create({
+  baseURL: 'https://quillsight.onrender.com/api/v1',
+  withCredentials: true, // This is crucial for sending and receiving cookies
+});
+
 function DashBoard() {
   const topics = [
     'Technology',
@@ -41,7 +47,7 @@ function DashBoard() {
     const fetchPosts = async () => {
       try {
         console.log("Getting posts");
-        const response = await axios.get('https://quillsight.onrender.com/api/v1/post/getAllPost');
+        const response = await axios.get('/post/getAllPost');
         setAllPosts(response.data.data);
         console.log("set", allPosts);
       } catch (error) {

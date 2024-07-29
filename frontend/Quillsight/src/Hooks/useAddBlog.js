@@ -6,6 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import useBlogStore from '../Zustand/userBlogs.js';
 
 
+const api = axios.create({
+    baseURL: 'https://quillsight.onrender.com/api/v1',
+    withCredentials: true, // This is crucial for sending and receiving cookies
+  });
+
 const useAddBlog = ()=>{
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -16,7 +21,7 @@ const useAddBlog = ()=>{
 
         try {
             console.log("sending blog data to backend")
-            const response = await axios.post('https://quillsight.onrender.com/api/v1/post/addPost', formData, {
+            const response = await axios.post('/post/addPost', formData, {
                 headers: {
                   'Content-Type': 'multipart/form-data',
                 },

@@ -2,6 +2,12 @@ import React ,{ useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+
+const api = axios.create({
+  baseURL: 'https://quillsight.onrender.com/api/v1',
+  withCredentials: true, // This is crucial for sending and receiving cookies
+});
+
 const useSavePost = ()=>{
 
     const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +18,7 @@ const useSavePost = ()=>{
     try {
         console.log("sending blog data to backend")
         console.log("hook",postId)
-        const response = await axios.post('https://quillsight.onrender.com/api/v1/post/savepost', { id: postId }, {
+        const response = await axios.post('/post/savepost', { id: postId }, {
             headers: {
               'Content-Type': 'application/json', // application/json is more suitable for sending JSON data
             },

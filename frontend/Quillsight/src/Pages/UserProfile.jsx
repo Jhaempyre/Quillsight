@@ -3,6 +3,11 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 
+const api = axios.create({
+  baseURL: 'https://quillsight.onrender.com/api/v1',
+  withCredentials: true, // This is crucial for sending and receiving cookies
+});
+
 function UserProfile() {
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
@@ -13,7 +18,7 @@ function UserProfile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = `https://quillsight.onrender.com/api/v1/user/${username}`;
+        const url = `/user/${username}`;
         const response = await axios.get(url);
         const { user, posts } = response.data.data;
         setUser(user);

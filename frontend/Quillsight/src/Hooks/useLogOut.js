@@ -4,6 +4,10 @@ import axios from 'axios';
 import useUserStore from '../Zustand/userInfoStore.js'; // Adjust the import path as needed
 import { useNavigate } from 'react-router-dom';
 
+const api = axios.create({
+  baseURL: 'https://quillsight.onrender.com/api/v1',
+  withCredentials: true, // This is crucial for sending and receiving cookies
+});
 
 const useLogout = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -18,7 +22,7 @@ const useLogout = () => {
 
     try {
       // Assuming you have a logout endpoint. If not, you can remove this API call.
-      await axios.post('https://quillsight.onrender.com/api/v1/user/logout');
+      await axios.post('/user/logout');
       
       // Clear the user data from the store
       logout();

@@ -4,6 +4,11 @@ import axios from 'axios';
 import useSavePost from '../Hooks/useSavePost';
 import useBlogStore from '../Zustand/userBlogs';
 
+const api = axios.create({
+  baseURL: 'https://quillsight.onrender.com/api/v1',
+  withCredentials: true, // This is crucial for sending and receiving cookies
+});
+
 const BlogPost = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
@@ -21,7 +26,7 @@ const BlogPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`https://quillsight.onrender.com/api/v1/post/${id}`);
+        const response = await axios.get(`/post/${id}`);
         setPost(response.data.data);
         setLoading(false);
       } catch (err) {

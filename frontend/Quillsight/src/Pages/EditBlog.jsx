@@ -2,6 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+
+const api = axios.create({
+  baseURL: 'https://quillsight.onrender.com/api/v1',
+  withCredentials: true, // This is crucial for sending and receiving cookies
+});
+
 const EditBlog = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -17,7 +23,7 @@ const EditBlog = () => {
   useEffect(() => {
     const fetchBlog = async () => {
       try {
-        const response = await axios.get(`https://quillsight.onrender.com/api/v1/post/${id}`);
+        const response = await axios.get(`/post/${id}`);
         setBlog(response.data.data);
         setIsLoading(false);
       } catch (err) {
@@ -50,7 +56,7 @@ const EditBlog = () => {
         formData.append('image', blog.image);
       }
 
-      const response = await axios.post('https://quillsight.onrender.com/api/v1/post/editPost', formData, {
+      const response = await axios.post('/post/editPost', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
