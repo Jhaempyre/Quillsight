@@ -25,17 +25,19 @@ const BlogPost = () => {
       try {
         const api = axios.create({
           baseURL: 'https://quillsight.onrender.com/api/v1',
-          withCredentials: true, // This is crucial for sending and receiving cookies
+          withCredentials: true,
         });
-        const response = await axios.get(`/post/${id}`);
+        
+        const response = await api.get(`/post/${id}`);
         setPost(response.data.data);
         setLoading(false);
       } catch (err) {
+        console.error('Error fetching post:', err);
         setError(err.response?.data?.message || 'An error occurred while fetching the post.');
         setLoading(false);
       }
     };
-
+  
     fetchPost();
   }, [id]);
 
