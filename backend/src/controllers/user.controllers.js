@@ -86,9 +86,12 @@ const loginUser = asyncHandler(async(req,res)=>{
         console.log(loggedUser)
         const options = {
             httpOnly : true ,
-            secure : true
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'None'
         }
         return res.status(200)
+        .header('Access-Control-Allow-Origin', 'https://quillsight.vercel.app/')
+        .header('Access-Control-Allow-Credentials', true)
         .cookie("accessToken", accessToken, options)
         .cookie("refreshToken", refreshToken, options)
         .json(
