@@ -21,6 +21,12 @@ const useBlogStore = create(
                 setAllPosts: (posts) => set((state) => ({
                     allPosts: posts
                 })),
+                removeCreatedBlog: (id) => set((state) => ({
+                    createdBlogs: [state.createdBlogs[0].filter(blog => blog._id !== id)]
+                  })),
+                removeSavedBlog: (id) => set((state) => ({
+                    savedBlogs: [state.savedBlogs[0].filter(blog => blog._id !== id)]
+                  })),  
             }),
             {
                 name: "All new Updates"

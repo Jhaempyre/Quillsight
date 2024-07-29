@@ -13,6 +13,7 @@ import SignUp from './Components/SignUp.jsx'
 import Login from './Components/Login.jsx'
 import BlogPost from './Pages/BlogPost.jsx'
 import UserProfile from './Pages/UserProfile.jsx'
+import EditBlog from './Pages/EditBlog.jsx'
 
 
 
@@ -85,7 +86,14 @@ const router = createBrowserRouter([
           <UserProfile/>
         )
 
+      },
+      {
+        path : '/editBlog/:id',
+        element:(
+          <EditBlog />
+        )
       }
+      
     ]
   }
 ])

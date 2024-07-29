@@ -14,6 +14,34 @@ const Profile = () => {
 
   const [activeTab, setActiveTab] = useState('created');
   const navigate = useNavigate();
+  const handleDelete = async (postId) => {
+    console.log("delete",postId)
+    try {
+      const response = await axios.post(`/api/v1/post/deletePost`,{postId});
+      if (response.data.success) {
+        createdBlogStore.removeCreatedBlog({postId});
+      } else {
+        throw new Error(response.data.message);
+      }
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    }
+  };
+  const handleEdit = (id) => {
+    navigate(`/editBlog/${id}`);
+  };
+  const handleRemoveSaved = async (id) => {
+    try {
+      const response = await axios.delete(`/api/v1/post/removesavedpost/${id}`);
+      if (response.data.success) {
+        createdBlogStore.removeSavedBlog(id);
+      } else {
+        throw new Error(response.data.message);
+      }
+    } catch (error) {
+      console.error("Error removing saved post:", error);
+    }
+  };
   useEffect((()=>{
     const fetchAllUpdate = async()=>{
       try {
@@ -74,7 +102,12 @@ const Profile = () => {
     navigate(`/dashboard/blog/${id}`)
   };
 
-  const renderPosts = (posts) => {
+  const imageclick = (id)=>{
+    console.log(id)
+    navigate(`/dashboard/blog/${id}`)
+  }
+
+  const renderPosts = (posts, isCreated) => {
     return posts.map((post) => (
       <div className='ml-12' key={post._id}>
         <motion.div
@@ -82,20 +115,45 @@ const Profile = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          onClick={() => handleCardClick(post._id)}
         >
           <figure>
             <img
               src={post.image}
               alt={post.tittle}
               className="w-full h-32 object-cover"
+              onClick={()=>{imageclick(post._id)}}
             />
           </figure>
           <div className="card-body p-3">
             <h2 className="card-title text-base">{post.tittle}</h2>
             <p className="text-xs">{post.content}</p>
-            <div className="card-actions justify-end mt-2">
+            <div className="card-actions justify-between mt-2">
               <span className="bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-xs">{post.category}</span>
+              <div>
+                {isCreated ? (
+                  <>
+                    <button 
+                      className="bg-blue-500 text-white px-2 py-1 rounded mr-2 text-xs"
+                      onClick={() => handleEdit(post._id)}
+                    >
+                      Edit
+                    </button>
+                    <button 
+                      className="bg-red-500 text-white px-2 py-1 rounded text-xs"
+                      onClick={() => handleDelete(post._id)}
+                    >
+                      Delete
+                    </button>
+                  </>
+                ) : (
+                  <button 
+                    className="bg-yellow-500 text-white px-2 py-1 rounded text-xs"
+                    onClick={() => handleRemoveSaved(post._id)}
+                  >
+                    Remove
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </motion.div>
@@ -135,7 +193,7 @@ const Profile = () => {
       </div>
       <br /><hr/>
       <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2" >
-        {activeTab === 'created' ? renderPosts(createdBlogs[0]) : renderPosts(savedBlogs[0])}
+        {activeTab === 'created' ? renderPosts(createdBlogs[0], true) : renderPosts(savedBlogs[0], false)}
       </div>
     </div>
   );
