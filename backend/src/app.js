@@ -8,7 +8,7 @@ app.use(cors({
     credentials:true,
     optionsSuccessStatus: 200
 }))
-app.use(cors(corsOptions));
+
 
 // to parse the incoming requests with JSON payloads (from req.body)
 
