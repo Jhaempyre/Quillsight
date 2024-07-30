@@ -54,7 +54,7 @@ function UserProfile() {
         >
           <figure>
             <img
-              src={post.image}
+              src={post.avtar}
               alt={post.title}
               className="w-full h-32 object-cover"
             />
