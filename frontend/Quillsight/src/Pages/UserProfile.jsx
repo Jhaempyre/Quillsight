@@ -17,7 +17,7 @@ function UserProfile() {
           baseURL: 'https://quillsight.onrender.com/api/v1',
           withCredentials: true, // This is crucial for sending and receiving cookies
         });
-        const response = await api.get(`/user/${username}`);
+        const response = await axios.get(`/user/${username}`);
         
         console.log("API Response:", response.data);  // Log the entire response for debugging
 
