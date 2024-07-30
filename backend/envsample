@@ -1,0 +1,16 @@
+MONGODB_URI="Your MONGODBURL"
+PORT = "PORT YOU WANT TO EXPOSE"
+
+CORS_ORIGIN="*"
+ACCESS_TOKEN_SECRET="A long 256 string genrated by sha256 algorithm or others"
+ACCESS_TOKEN_EXPIRY="time in which it expires"
+REFRESH_TOKEN_SECRET="A long 256 string genrated by sha256 algorithm or others"
+REFRESH_TOKEN_EXPIRY="time in which it expires"
+
+
+CLOUDINARY_CLOUD_NAME="yor cloudinary name"
+CLOUDINARY_API_KEY="your cloudinary api key"
+CLOUDINARY_API_SECRET="your cloudinary api secret"
+
+//API environment variable
+CLOUDINARY_URL="your cloudinary url"
