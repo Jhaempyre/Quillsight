@@ -54,7 +54,7 @@ function UserProfile() {
         >
           <figure>
             <img
-              src={post.avtar}
+              src={post.image}
               alt={post.title}
               className="w-full h-32 object-cover"
             />
@@ -74,7 +74,7 @@ function UserProfile() {
   return (
     <div className="text-center mt-8">
       <div className="w-24 h-24 mx-auto">
-        <img src={user.avatar} alt={user.fullname} className="w-full h-full rounded-full object-cover" />
+        <img src={user.avtar} alt={user.fullname} className="w-full h-full rounded-full object-cover" />
       </div>
       <h2 className="mt-4 text-xl font-bold">{user.fullname}</h2>
       <p className="text-gray-600">{user.bio}</p>
