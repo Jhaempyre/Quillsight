@@ -12,7 +12,7 @@ const useSavePost = ()=>{
     try {
         console.log("sending blog data to backend")
         console.log("hook",postId)
-        const response = await axios.post('https://quillsight-z192.onrender.com/api/v1/post/savepost', { id: postId }, {
+        const response = await axios.post('/api/v1/post/savepost', { id: postId }, {
             headers: {
               'Content-Type': 'application/json', // application/json is more suitable for sending JSON data
             },

@@ -20,10 +20,10 @@ const useLogin = () => {
         setError(null);
 
         try {
-            const response = await axios.post('https://quillsight-z192.onrender.com/api/v1/user/loginUser', { email, password });
+            const response = await axios.post('/api/v1/user/loginUser', { email, password });
 
-            const getCreatedBlog = await axios.get('https://quillsight-z192.onrender.com/api/v1/post/getyourpost');
-            const getSavedBlog = await axios.get("https://quillsight-z192.onrender.com/api/v1/post/savedpost");
+            const getCreatedBlog = await axios.get('/api/v1/post/getyourpost');
+            const getSavedBlog = await axios.get("/api/v1/post/savedpost");
 
             if (getCreatedBlog.data.error) {
                 throw new Error(getCreatedBlog.data.error);
@@ -42,7 +42,7 @@ const useLogin = () => {
 
             loggedUser(response.data.data.loggedUser);
             authStatus(true);
-            navigate('https://quillsight-z192.onrender.com/dashboard/profile');
+            navigate('/api/dashboard/profile');
 
             return true; // Login successful
         } catch (err) {
