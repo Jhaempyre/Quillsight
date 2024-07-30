@@ -19,6 +19,7 @@ function UserProfile() {
         });
         const response = await axios.get(`/user/${username}`);
         
+        console.log(response)
         console.log("API Response:", response.data);  // Log the entire response for debugging
 
         if (response.data && response.data.data) {
