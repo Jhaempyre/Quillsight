@@ -5,7 +5,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',  //for development server i guess other iption are creating problems 
+        target: 'https://quillsight-z192.onrender.com',  //for development server i guess other iption are creating problems 
         //other options of fallback will be written after mvp .
 
       },

@@ -42,7 +42,7 @@ const useLogin = () => {
 
             loggedUser(response.data.data.loggedUser);
             authStatus(true);
-            navigate('/dashboard/profile');
+            navigate('/api/dashboard/profile');
 
             return true; // Login successful
         } catch (err) {
