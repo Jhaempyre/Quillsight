@@ -2,10 +2,10 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const cards = [
-  { title: 'Most Viewed', content: 'Click here to see the most viewed articles' },
-  { title: 'Latest Posts', content: 'Check out our newest content' },
-  { title: 'Top Authors', content: 'See whos making waves in our community' },
-  { title: 'Trending Topics', content: 'Discover whats hot right now' },
+  { title: 'Technology', content: 'Technology is the one of the Boon.' , image:"https://res.cloudinary.com/du7ctzi61/image/upload/v1722407876/IMG-20240731-WA0015_zwxmr7.jpg" },
+  { title: 'Travel', content: 'Welcome to Delhi.' , image :"https://res.cloudinary.com/du7ctzi61/image/upload/v1722407834/IMG-20240731-WA0014_hpa46g.jpg" },
+  { title: 'Food and Cooking', content: 'Let us make Paneer butter masala' , image :"https://res.cloudinary.com/du7ctzi61/image/upload/v1722407892/IMG-20240731-WA0017_v2rqcs.jpg" },
+  { title: 'Sports', content: 'India won T-20 world cup' , image :"https://res.cloudinary.com/du7ctzi61/image/upload/v1722407887/IMG-20240731-WA0016_ixnmwi.jpg" },
   
 ];
 
@@ -68,10 +68,12 @@ function HomePage() {
       >
         <figure>
           <img
-            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+            src={card.image}
             alt={card.title}
           />
         </figure>
+        <br/>
+        <hr/>
         <div className="card-body">
           <h2 className="card-title text-sm">{card.title}</h2>
           <p className="text-xs">{card.content}</p>
