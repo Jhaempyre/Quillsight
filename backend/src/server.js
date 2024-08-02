@@ -1,21 +1,27 @@
 import dotenv from "dotenv"
-
 import mongoose from "mongoose"
-import {DB_NAME} from "./constants.js"
+import { DB_NAME } from "./constants.js"
 import connectDB from "./db/database.js"
 import { app } from "./app.js"
+import { fileURLToPath } from 'url'
+import { dirname, join } from 'path'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 dotenv.config({
-    path:'./env'
+    path: join(__dirname, '..', '.env')
 })
 
-//connecting to databse and spining up the server 
-console.log(" Jai Shree ram")
-connectDB().then(()=>{
-    app.listen(process.env.PORT|| 8000,()=>{
-        console.log(`server is runnning at ${process.env.PORT}`)
-    } ) 
-})
-.catch((err)=>{
-    console.log("mongo db connnection failuree!!!",err);
-})
+console.log("Jai Shree Ram")
+console.log("PORT:", process.env.PORT)
+
+connectDB()
+    .then(() => {
+        app.listen(process.env.PORT || 8000, () => {
+            console.log(`Server is running at port ${process.env.PORT}`)
+        })
+    })
+    .catch((err) => {
+        console.log("MongoDB connection failure!!!", err)
+    })
