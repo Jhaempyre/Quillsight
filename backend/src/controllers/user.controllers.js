@@ -36,13 +36,15 @@ const registerUser = asyncHandler(async(req,res)=>{
         if(existeduser){
                 throw new ApiError(409,"user exsisit")
             }
+       console.log(req.file)
         let imageLocalPath;
     
         if (req.file){
             imageLocalPath = req.file.path;
+	     console.log("Image local path:", imageLocalPath);
         }  
         const imageUrl = await uploadOnCloudinary(imageLocalPath, "Profile photo");
-        console.log(imageUrl); 
+        console.log("Cloudinary response:", imageUrl);
         
         const newUser = await User.create({
             fullname,
@@ -61,6 +63,7 @@ const registerUser = asyncHandler(async(req,res)=>{
         throw new ApiError(400,`${error.message}`)
     }
 })
+
 const loginUser = asyncHandler(async(req,res)=>{
     try {
         const {email , password} = req.body

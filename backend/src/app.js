@@ -11,7 +11,7 @@ const app =  express()
 // to parse the incoming requests with JSON payloads (from req.body)
 
 app.use(express.json({
-    limit:"16kb"
+    limit:"10Mb"
 }))
 
 // To handle cookies 
@@ -22,7 +22,7 @@ app.use(cookieParser())
 
 app.use(express.urlencoded({
     extended:true,
-    limit:"16kb"
+    limit:"16Mb"
 }))
 
 app.use(express.static("public"))//public asset hae jaha 
