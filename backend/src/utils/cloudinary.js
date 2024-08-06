@@ -1,15 +1,24 @@
 import {v2 as cloudinary} from "cloudinary"
 import fs from "fs"
-          
-cloudinary.config({ 
-  cloud_name : process.env.CLOUDINARY_CLOUD_NAME, 
-  api_key : process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-  secure: true,
-});
+import dotenv from "dotenv"
+
+dotenv.config({
+	path :'./.env'
+})
 
 const uploadOnCloudinary = async(localFilePath)=>{
     try {
+
+	cloudinary.config({ 
+  	cloud_name : process.env.CLOUDINARY_CLOUD_NAME, 
+  	api_key : process.env.CLOUDINARY_API_KEY,
+ 	api_secret: process.env.CLOUDINARY_API_SECRET
+});
+	console.log("Cloudinary Config:", {
+  	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  	api_key: process.env.CLOUDINARY_API_KEY,
+  	api_secret: process.env.CLOUDINARY_API_SECRET
+	});
 
 	console.log("Attempting to upload file:", localFilePath);
         if (!localFilePath) return null
