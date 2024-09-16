@@ -21,6 +21,6 @@ router.route("/unfollow").post(authVerify,unfollow)
 router.route("/followerList").post(authVerify,followerList)
 router.route("/followingList").post(authVerify,followingList)
 router.route("/:username").get(getAUserAndPost)
-router.route("/health").get(healthCheck)
+router.route("/health/check").get(healthCheck)
 
 export default router 

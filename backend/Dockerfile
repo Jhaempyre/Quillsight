@@ -15,19 +15,19 @@ RUN node -v
 RUN npm -v
 
 # Create a non-root user "jhaempire"
-RUN useradd -ms /bin/bash jhaempire  
+#RUN useradd -ms /bin/bash jhaempire  
 
 # Set the working directory
 WORKDIR /app
 
 #Copy the package-app-json and related files to install dependencies , and set ownership to jhaempire
-COPY --chown=jhaempire:jhaempire package*.json ./
+COPY  package*.json ./
 
 #Install depencdencies including @devdependencies
 RUN npm install
 
 #Copy the rest of application and set ownership to jhaempire
-COPY --chown=jhaempire:jhaempire . .
+COPY  . .
 
 #Stage : 2 Production stage (runner)
 FROM ubuntu as runner 
@@ -38,22 +38,20 @@ RUN apt-get update && apt-get install -y curl \
   && apt-get install -y nodejs
 
 #Create same non-root user in production stage to (not get permission denied error and also to remove confusion and ensure consistency)
-RUN useradd -ms /bin/bash jhaempire
+#RUN useradd -ms /bin/bash jhaempire
 
 # Set working directory in the production container
 WORKDIR /app
 
 #Copy neccesary files and folders from the builder stage with ownership changed to "jhaempire"
-COPY --chown=jhaempire:jhaempire --from=builder /app/node_modules /app/node_modules
-COPY --chown=jhaempire:jhaempire --from=builder /app/public /app/public
-COPY --chown=jhaempire:jhaempire --from=builder /app/src /app/src
-COPY --chown=jhaempire:jhaempire --from=builder /app/.env /app/.env
-COPY --chown=jhaempire:jhaempire --from=builder /app/.prettierrc /app/.prettierrc
-COPY --chown=jhaempire:jhaempire --from=builder /app/.prettierignore /app/.prettierignore
-COPY --chown=jhaempire:jhaempire --from=builder /app/package*.json /app/
+COPY  --from=builder /app/node_modules /app/node_modules
+COPY  --from=builder /app/public /app/public
+COPY  --from=builder /app/src /app/src
+COPY  --from=builder /app/.env /app/.env
+COPY  --from=builder /app/.prettierrc /app/.prettierrc
+COPY  --from=builder /app/.prettierignore /app/.prettierignore
+COPY  --from=builder /app/package*.json /app/
 
-# Set the user to jhaempire
-USER jhaempire
 
 #To Run the server
-CMD [ "npm","start" ]
+CMD ["node", "src/server.js"]
