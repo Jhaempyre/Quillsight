@@ -81,7 +81,7 @@ Go to the original repository on GitHub and open a pull request with a descripti
 Happy coding...
 Feel free to customize any part of this `README.md` to better suit your project or preferences.
 
-we really appreciate the coders to work on open source project . please show case your skills be it design be it anything... other changes will be made soon.
+we really appreciate the coders to work on open source project . please show case your skills be it design be it anything... other changes will be made soon..
 
 Happy coding !!!
 
