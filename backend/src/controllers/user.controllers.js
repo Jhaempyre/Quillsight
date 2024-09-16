@@ -235,6 +235,11 @@ const getAUserAndPost = asyncHandler(async(req,res)=>{
 
 
 })
+
+const healthCheck = asyncHandler(async(req,res)=>{
+    console.log("hello from server in docker deamon");
+    return res.status(200).json(new ApiResponse(200, "Server is running"))
+})
 export {registerUser,
         loginUser,
         logOutUser,
@@ -244,5 +249,6 @@ export {registerUser,
         unfollow,
         followerList,
         followingList,
-        getAUserAndPost
+        getAUserAndPost,
+        healthCheck
        }
