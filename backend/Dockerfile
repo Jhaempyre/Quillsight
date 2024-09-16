@@ -2,13 +2,13 @@
 FROM ubuntu as builder
 
 # Update package list and install curl for fetching NodeSource
-RUN apt-get update && apt upgrade && apt-get install -y curl 
+RUN apt-get update && apt-get install -y curl 
 
 # Add NodeSource repository for Node.js (latest version)
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 
 # Install Node.js and npm
-RUN apt-get install -y node.js
+RUN apt-get install -y nodejs
 
 # Verify Node.js and npm are installed correctly
 RUN node -v
@@ -27,7 +27,7 @@ COPY --chown=jhaempire:jhaempire package*.json ./
 RUN npm install
 
 #Copy the rest of application and set ownership to jhaempire
-COPY --chown=jhaempire:jhamepire . .
+COPY --chown=jhaempire:jhaempire . .
 
 #Stage : 2 Production stage (runner)
 FROM ubuntu as runner 
