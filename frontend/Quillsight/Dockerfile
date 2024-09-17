@@ -37,3 +37,8 @@ COPY --from=builder /app/dist /var/www/html
 
 # Start Nginx server
 CMD ["nginx", "-g", "daemon off;"]
+
+
+
+#at this point 
+# **********furhter for merging in main and *******
